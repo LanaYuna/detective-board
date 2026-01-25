@@ -1,132 +1,128 @@
 const canvas = document.querySelector("canvas");
 const buttonCircle = document.querySelector("#button-circle");
 const buttonRectangle = document.querySelector("#button-rectangle");
-const buttonPencil = document.querySelector("#button-pencil");
-
-let objects = []; // armazenar em array de objetos para gerenciar estado
-let currentTool = 'pincel';
+const buttonPencil = document.querySelector("#button-pencil"); // ALTERAR OS NOMES DA VARIÁVEIS
+const undoButton = document.querySelector("#undo-button");
+const redoButton = document.querySelector("#redo-button");
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 const c = canvas.getContext("2d");
 
+let objects = []; // armazenar em array de objetos para gerenciar estado
+let newObject = null // Objeto que pertence a object
+let currentTool = 'pencil';
 let drawing = false;
-let placeCircle = false;
-let placeRectangle = false;
-
-let previousPosition = {
-    x: 0,
-    y: 0
-};
+let redoHistory = [];
 
 buttonPencil.addEventListener("click", () => {currentTool = 'pencil'})
 buttonCircle.addEventListener("click", () => {currentTool = 'circle'});
 buttonRectangle.addEventListener("click", () => {currentTool = 'rectangle'})
 
+undoButton.addEventListener("click", () => {
+    undo();
+})
+
+redoButton.addEventListener("click", () => {
+    redo();
+})
+
+window.addEventListener("keydown", (event) => {
+    if(event.ctrlKey && event.key === 'z'){
+        undo();
+    }
+})
+
+window.addEventListener("keydown", (event) => {
+    if(event.ctrlKey && event.key === 'y'){
+        redo();
+    }
+})
+
+function undo(){
+    if(objects.length > 0){
+        const removedItem = objects.pop();
+        redoHistory.push(removedItem);
+        renderDrawing();
+    }
+}
+
+function redo(){
+    if(redoHistory.length > 0){
+        objects.push(redoHistory[redoHistory.length - 1]); // Acessa o último elemento de redoHistory
+        redoHistory.pop(); 
+        renderDrawing();
+    }
+}
+
 canvas.addEventListener("mousedown", (event) => {
-    const newObject = {
-        x : event.offsetX,
-        y: event.offsetY,
-        type: currentTool,
-        color: 'black'
+    drawing = true;
+
+    if(currentTool == 'pencil'){
+        newObject = {
+            points: [{x: event.offsetX, y: event.offsetY}],
+            type: 'pencil', 
+            color: 'black'
+        }
+
+    } else {
+        newObject = {
+            x : event.offsetX,
+            y: event.offsetY,
+            type: currentTool,
+            color: 'black'
+        }
     };
 
     objects.push(newObject);
 
+})
+
+canvas.addEventListener("mousemove", (event) => {
+    if(!drawing) return;
+    
+    if(currentTool == 'pencil'){
+        // Adicionar cada novo ponto em points do objeto
+        newObject.points.push({x: event.offsetX, y: event.offsetY});
+    }
+
     renderDrawing();
 })
 
-function renderDrawing(){
+canvas.addEventListener("mouseup", () => {
+    drawing = false;
+    newObject = null;
+})
 
+
+function renderDrawing(){
     c.clearRect(0, 0, canvas.width, canvas.height); // limpa o quadro
 
     objects.forEach(obj => { // redesenha a todo momento
-        c.beginPath();
+        // c.strokeStyle = obj.color;
 
         if(obj.type == 'circle'){
+            c.beginPath();
             c.arc(obj.x, obj.y, 20, 0, Math.PI * 2, false);
             c.stroke();
+
         } else if(obj.type == 'rectangle'){
             c.strokeRect(obj.x, obj.y, 20, 20);
+
         } else if(obj.type == 'pencil'){
-            drawing = true;
-            previousPosition.x = obj.x;
-            previousPosition.y = obj.y;
 
-            canvas.addEventListener("mousemove", (event) => {
-                if(!drawing) return;
+            if(obj.points.length < 2) return;
+            
+            c.beginPath();
+            c.moveTo(obj.points[0].x, obj.points[0].y);
+            for(let i=1; i < obj.points.length; i++){
+                c.lineTo(obj.points[i].x, obj.points[i].y);
+            }
 
-                c.beginPath();
-                c.moveTo(previousPosition.x, previousPosition.y);
-                c.lineTo(event.offsetX, event.offsetY);
-                c.lineCap = 'round';
-                c.stroke();
-                previousPosition.x = event.offsetX;
-                previousPosition.y = event.offsetY;
-            })
-
-            canvas.addEventListener("mouseup", () => {
-                drawing = false;
-            })
+            c.lineCap = 'round';
+            c.lineJoin = 'round';
+            c.stroke();
         }
     })
-
-    console.log(objects)
 };
-
-// buttonPencil.addEventListener("click", () => {
-//     placeCircle = false;
-//     placeRectangle = false;
-
-//     window.addEventListener("mousedown", (event) => {
-//         drawing = true;
-//         previousPosition.x = event.offsetX;
-//         previousPosition.y = event.offsetY;
-//     })
-
-//     window.addEventListener("mousemove", (event) => {
-//         if(!drawing) return;
-
-//         c.beginPath();
-//         c.moveTo(previousPosition.x, previousPosition.y);
-//         c.lineTo(event.offsetX, event.offsetY);
-//         c.lineCap = 'round';
-//         c.stroke();
-//         previousPosition.x = event.offsetX;
-//         previousPosition.y = event.offsetY;
-//     })
-
-//     window.addEventListener("mouseup", () => {
-//         drawing = false;
-//     })
-// })
-
-
-// buttonCircle.addEventListener("click", () => {
-//     placeCircle = true;
-//     placeRectangle = false;
-
-//     window.addEventListener("mousedown", (event) => {   
-//         if(!placeCircle) return;
-        
-//         drawing = false;   
-//         c.beginPath();
-//         c.arc(event.offsetX, event.offsetY, 10, 0, Math.PI * 2, false);
-//         c.stroke();
-
-//     })
-
-// })
-
-// buttonRectangle.addEventListener("click", () => {
-//     placeRectangle = true;
-//     placeCircle = false;
-
-//     window.addEventListener("mousedown", (event) => {
-//         if(!placeRectangle) return;
-
-//         drawing = false;
-//         c.strokeRect(event.offsetX, event.offsetY, 20, 20); 
-//     });
-
