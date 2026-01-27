@@ -4,6 +4,7 @@ const buttonRectangle = document.querySelector("#button-rectangle");
 const buttonPencil = document.querySelector("#button-pencil"); // ALTERAR OS NOMES DA VARIÁVEIS
 const undoButton = document.querySelector("#undo-button");
 const redoButton = document.querySelector("#redo-button");
+const textButton = document.querySelector("#text-button");
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
@@ -15,10 +16,15 @@ let newObject = null // Objeto que pertence a object
 let currentTool = 'pencil';
 let drawing = false;
 let redoHistory = [];
+let message = [];
 
-buttonPencil.addEventListener("click", () => {currentTool = 'pencil'})
+
+
+buttonPencil.addEventListener("click", () => {currentTool = 'pencil'});
 buttonCircle.addEventListener("click", () => {currentTool = 'circle'});
-buttonRectangle.addEventListener("click", () => {currentTool = 'rectangle'})
+buttonRectangle.addEventListener("click", () => {currentTool = 'rectangle'});
+textButton.addEventListener("click", () => {currentTool = 'text'});
+
 
 undoButton.addEventListener("click", () => {
     undo();
@@ -58,6 +64,7 @@ function redo(){
 
 canvas.addEventListener("mousedown", (event) => {
     drawing = true;
+    redoHistory = []; // Limpa o histórico quando o usuário realiza nova ação
 
     if(currentTool == 'pencil'){
         newObject = {
@@ -65,18 +72,45 @@ canvas.addEventListener("mousedown", (event) => {
             type: 'pencil', 
             color: 'black'
         }
+        objects.push(newObject);
 
-    } else {
+    } else if(currentTool == 'circle') {
         newObject = {
             x : event.offsetX,
             y: event.offsetY,
-            type: currentTool,
-            color: 'black'
+            type: 'circle',
+            color: 'black',
+            radius: null
         }
-    };
+        objects.push(newObject);
 
-    objects.push(newObject);
+    } else if(currentTool == 'rectangle'){
+        newObject = {
+            x: event.offsetX,
+            y: event.offsetY,
+            type: 'rectangle',
+            color: 'black',
+            width: null,
+            height: null
+        }
+        objects.push(newObject);
 
+    } else if(currentTool == 'text'){
+        const text = window.prompt("Digite o texto");
+        if(text) {
+            newObject = {
+                x: event.offsetX,
+                y: event.offsetY,
+                type: 'text',
+                text: text,
+                color: 'black'
+            }   
+            drawing = false;
+            objects.push(newObject);
+            renderDrawing();
+            return;
+        }
+    }
 })
 
 canvas.addEventListener("mousemove", (event) => {
@@ -85,6 +119,16 @@ canvas.addEventListener("mousemove", (event) => {
     if(currentTool == 'pencil'){
         // Adicionar cada novo ponto em points do objeto
         newObject.points.push({x: event.offsetX, y: event.offsetY});
+    } else if (currentTool == 'circle'){
+        const dx = event.offsetX - newObject.x;
+        const dy = event.offsetY - newObject.y;
+        newObject.radius = Math.sqrt(dx * dx + dy * dy); // pitágoras para obter o raio
+
+    } else if (currentTool == 'rectangle'){
+        newObject.width = event.offsetX - newObject.x;
+        newObject.height = event.offsetY - newObject.y;
+    } else {
+        return;
     }
 
     renderDrawing();
@@ -104,11 +148,11 @@ function renderDrawing(){
 
         if(obj.type == 'circle'){
             c.beginPath();
-            c.arc(obj.x, obj.y, 20, 0, Math.PI * 2, false);
+            c.arc(obj.x, obj.y, obj.radius, 0, Math.PI * 2, false);
             c.stroke();
 
         } else if(obj.type == 'rectangle'){
-            c.strokeRect(obj.x, obj.y, 20, 20);
+            c.strokeRect(obj.x, obj.y, obj.width, obj.height);
 
         } else if(obj.type == 'pencil'){
 
@@ -123,6 +167,10 @@ function renderDrawing(){
             c.lineCap = 'round';
             c.lineJoin = 'round';
             c.stroke();
+        } else if(obj.type == 'text'){
+            c.font = '20px Arial'
+            c.fillText(obj.text, obj.x, obj.y)
         }
     })
 };
+
