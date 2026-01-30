@@ -4,25 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Canvas</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-        }
-    
-    </style>
+    <link rel="stylesheet" href="/src/style.css">
 </head>
 <body>
 
-    <button id="button-pencil">Pencil</button>
-    <button id="button-circle">Circle</button>
-    <button id="button-rectangle">Rectangle</button>
-    <button id="undo-button">Undo</button>
-    <button id="redo-button">Redo</button>
-    <button id="text-button">Text</button>
+    <div class="m-5 p-1 gap-x-4 bg-sky-100 w-2xs">
+        <button id="button-pencil">Pencil</button>
+        <button id="button-circle">Circle</button>
+        <button id="button-rectangle">Rectangle</button>
+        <button id="text-button">Text</button>  
+        <button id="undo-button">Undo</button>
+        <button id="redo-button">Redo</button>
+    </div>
+
 
     <canvas></canvas>
-    <script src="board.js"></script>
+    <script src="/src/board.js"></script>
     
 </body>
 </html> 
