@@ -1,10 +1,16 @@
 const canvas = document.querySelector("canvas");
+
 const buttonCircle = document.querySelector("#button-circle");
 const buttonRectangle = document.querySelector("#button-rectangle");
 const buttonPencil = document.querySelector("#button-pencil"); // ALTERAR OS NOMES DA VARIÁVEIS
+
 const undoButton = document.querySelector("#undo-button");
 const redoButton = document.querySelector("#redo-button");
 const textButton = document.querySelector("#text-button");
+
+const redButton = document.querySelector("#red-button");
+const blackButton = document.querySelector("#black-button");
+const blueButton = document.querySelector("#blue-button");
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
@@ -17,7 +23,7 @@ let currentTool = 'pencil';
 let drawing = false;
 let redoHistory = [];
 let message = [];
-
+let currentColor = 'black';
 
 
 buttonPencil.addEventListener("click", () => {currentTool = 'pencil'});
@@ -25,6 +31,9 @@ buttonCircle.addEventListener("click", () => {currentTool = 'circle'});
 buttonRectangle.addEventListener("click", () => {currentTool = 'rectangle'});
 textButton.addEventListener("click", () => {currentTool = 'text'});
 
+redButton.addEventListener("click", () => {currentColor = 'red'});
+blackButton.addEventListener("click", () => {currentColor = 'black'});
+blueButton.addEventListener("click", () => {currentColor = 'blue'});
 
 undoButton.addEventListener("click", () => {
     undo();
@@ -70,7 +79,7 @@ canvas.addEventListener("mousedown", (event) => {
         newObject = {
             points: [{x: event.offsetX, y: event.offsetY}],
             type: 'pencil', 
-            color: 'black'
+            color: currentColor
         }
         objects.push(newObject);
 
@@ -79,7 +88,7 @@ canvas.addEventListener("mousedown", (event) => {
             x : event.offsetX,
             y: event.offsetY,
             type: 'circle',
-            color: 'black',
+            color: currentColor,
             radius: null
         }
         objects.push(newObject);
@@ -89,7 +98,7 @@ canvas.addEventListener("mousedown", (event) => {
             x: event.offsetX,
             y: event.offsetY,
             type: 'rectangle',
-            color: 'black',
+            color: currentColor,
             width: null,
             height: null
         }
@@ -103,8 +112,8 @@ canvas.addEventListener("mousedown", (event) => {
                 y: event.offsetY,
                 type: 'text',
                 text: text,
-                color: 'black'
-            }   
+                color: currentColor
+            }; 
             drawing = false;
             objects.push(newObject);
             renderDrawing();
@@ -144,15 +153,18 @@ function renderDrawing(){
     c.clearRect(0, 0, canvas.width, canvas.height); // limpa o quadro
 
     objects.forEach(obj => { // redesenha a todo momento
-        // c.strokeStyle = obj.color;
+        c.strokeStyle = obj.color;
+        c.fillStyle = obj.color;
 
         if(obj.type == 'circle'){
             c.beginPath();
             c.arc(obj.x, obj.y, obj.radius, 0, Math.PI * 2, false);
             c.stroke();
+         
 
         } else if(obj.type == 'rectangle'){
             c.strokeRect(obj.x, obj.y, obj.width, obj.height);
+        
 
         } else if(obj.type == 'pencil'){
 
@@ -167,9 +179,11 @@ function renderDrawing(){
             c.lineCap = 'round';
             c.lineJoin = 'round';
             c.stroke();
+        
+
         } else if(obj.type == 'text'){
-            c.font = '20px Arial'
-            c.fillText(obj.text, obj.x, obj.y)
+            c.font = '20px Arial';
+            c.fillText(obj.text, obj.x, obj.y);
         }
     })
 };
