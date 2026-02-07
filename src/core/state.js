@@ -6,7 +6,7 @@ export const state = {
     currentTool: 'pencil',
     currentColor: 'black',
     lineWidth: 2,
-    isDrawing: false,
+    drawing: false,
 
     addObject(obj) {
         this.objects.push(obj);
