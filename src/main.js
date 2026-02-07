@@ -1,7 +1,7 @@
 import './css/style.css';
 import { renderDrawing } from './core/engine.js';
 import { state } from './core/state.js';
-import { pencilTool } from './tools/pincel.js';
+import { pencilTool } from './tools/pencil.js';
 import { circleTool } from './tools/shapes.js';
 import { rectangleTool } from './tools/shapes.js';
 import { textTool } from './tools/text.js';
@@ -12,7 +12,6 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 export const c = canvas.getContext("2d");
 
-let objects = [];
 let newObject = null;
 
 canvas.addEventListener("mousedown", (event) => {
@@ -31,7 +30,8 @@ canvas.addEventListener("mousedown", (event) => {
         state.addObject(newObject);
 
     } else if (state.currentTool == 'text') {
-        newObject = textTool.start(event, state.currentColor);
+        const text = window.prompt("Informe o texto: ");
+        newObject = textTool.start(event, text, state.currentColor);
         state.addObject(newObject);
         state.drawing = false;
         textTool.draw(c, newObject);
@@ -49,13 +49,15 @@ canvas.addEventListener("mousemove", (event) => {
 
     } else if (state.currentTool == 'circle'){
         circleTool.move(newObject, event);
-
+        
     } else if (state.currentTool == 'rectangle'){
         rectangleTool.move(newObject, event);
 
     } else {
         return;
     }
+
+    renderDrawing();
 });
 
 canvas.addEventListener("mouseup", () => {
@@ -63,5 +65,3 @@ canvas.addEventListener("mouseup", () => {
     newObject = null;
 });
 
-
-renderDrawing();

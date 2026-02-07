@@ -2,11 +2,11 @@ export const textTool = {
 
     start(event, text, color){
         return {
-             x: event.offsetX,
-                y: event.offsetY,
-                type: 'text',
-                text: text,
-                color: color
+            x: event.offsetX,
+            y: event.offsetY,
+            type: 'text',
+            text: text,
+            color: color
         };
     },
 

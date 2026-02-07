@@ -1,5 +1,5 @@
 import { state } from '../core/state.js';
-import { pencilTool } from '../tools/pincel.js';
+import { pencilTool } from '../tools/pencil.js';
 import { circleTool } from '../tools/shapes.js';
 import { rectangleTool } from '../tools/shapes.js';
 import { c } from '../main.js';
@@ -12,13 +12,13 @@ export function renderDrawing(){
         c.strokeStyle = obj.color;
         c.fillStyle = obj.color;
 
-        if(state.currentTool == 'circle'){
+        if(obj.type == 'circle'){
             circleTool.draw(c, obj);
 
-        } else if(state.currentTool == 'rectangle'){
+        } else if(obj.type == 'rectangle'){
             rectangleTool.draw(c, obj);
     
-        } else if(state.currentTool == 'pencil'){
+        } else if(obj.type == 'pencil'){
             pencilTool.draw(c, obj);
 
         }

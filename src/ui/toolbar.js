@@ -4,7 +4,7 @@ import { renderDrawing } from '../core/engine.js';
 const undoBtn = document.querySelector("#undo-button");
 const redoBtn = document.querySelector("#redo-button");
 
-const pincelBtn = document.querySelector("#pencil-button");
+const pencilBtn = document.querySelector("#pencil-button");
 const circleBtn = document.querySelector("#circle-button");
 const rectangleBtn = document.querySelector("#rectangle-button");
 const textBtn = document.querySelector("#text-button");
@@ -13,7 +13,7 @@ const redBtn = document.querySelector("#red-button");
 const blackBtn = document.querySelector("#black-button");
 const blueBtn = document.querySelector("#blue-button");
 
-pincelBtn.addEventListener("click", () => {state.currentTool = 'pincel'});
+pencilBtn.addEventListener("click", () => {state.currentTool = 'pencil'});
 circleBtn.addEventListener("click", () => {state.currentTool = 'circle'});
 rectangleBtn.addEventListener("click", () => {state.currentTool = 'rectangle'});
 textBtn.addEventListener("click", () => {state.currentTool = 'text'});

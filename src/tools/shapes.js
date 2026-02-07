@@ -29,7 +29,7 @@ export const rectangleTool = {
             x: event.offsetX,
             y: event.offsetY,
             type: 'rectangle',
-            color: currentColor,
+            color: color,
             width: null,
             height: null
         };
