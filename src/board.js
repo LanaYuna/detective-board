@@ -12,8 +12,6 @@ const redButton = document.querySelector("#red-button");
 const blackButton = document.querySelector("#black-button");
 const blueButton = document.querySelector("#blue-button");
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
 
 const c = canvas.getContext("2d");
 
@@ -55,21 +53,7 @@ window.addEventListener("keydown", (event) => {
     }
 })
 
-function undo(){
-    if(objects.length > 0){
-        const removedItem = objects.pop();
-        redoHistory.push(removedItem);
-        renderDrawing();
-    }
-}
 
-function redo(){
-    if(redoHistory.length > 0){
-        objects.push(redoHistory[redoHistory.length - 1]); // Acessa o último elemento de redoHistory
-        redoHistory.pop(); 
-        renderDrawing();
-    }
-}
 
 canvas.addEventListener("mousedown", (event) => {
     drawing = true;
@@ -149,42 +133,4 @@ canvas.addEventListener("mouseup", () => {
 })
 
 
-function renderDrawing(){
-    c.clearRect(0, 0, canvas.width, canvas.height); // limpa o quadro
-
-    objects.forEach(obj => { // redesenha a todo momento
-        c.strokeStyle = obj.color;
-        c.fillStyle = obj.color;
-
-        if(obj.type == 'circle'){
-            c.beginPath();
-            c.arc(obj.x, obj.y, obj.radius, 0, Math.PI * 2, false);
-            c.stroke();
-         
-
-        } else if(obj.type == 'rectangle'){
-            c.strokeRect(obj.x, obj.y, obj.width, obj.height);
-        
-
-        } else if(obj.type == 'pencil'){
-
-            if(obj.points.length < 2) return;
-            
-            c.beginPath();
-            c.moveTo(obj.points[0].x, obj.points[0].y);
-            for(let i=1; i < obj.points.length; i++){
-                c.lineTo(obj.points[i].x, obj.points[i].y);
-            }
-
-            c.lineCap = 'round';
-            c.lineJoin = 'round';
-            c.stroke();
-        
-
-        } else if(obj.type == 'text'){
-            c.font = '20px Arial';
-            c.fillText(obj.text, obj.x, obj.y);
-        }
-    })
-};
 
