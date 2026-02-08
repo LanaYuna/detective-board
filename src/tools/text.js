@@ -1,12 +1,13 @@
 export const textTool = {
 
-    start(event, text, color){
+    start(event, text, color, lineWidth){
         return {
             x: event.offsetX,
             y: event.offsetY,
             type: 'text',
             text: text,
-            color: color
+            color: color,
+            lineWidth: lineWidth
         };
     },
 

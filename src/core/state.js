@@ -5,12 +5,12 @@ export const state = {
 
     currentTool: 'pencil',
     currentColor: 'black',
-    lineWidth: 2,
+    lineWidth: 1,
     drawing: false,
 
     addObject(obj) {
         this.objects.push(obj);
-        this.redoHistory = []; // Esvazia quando cria algo novo
+        this.redoHistory = []; // Esvazia o histórico de refazer quando cria algo novo
     },
 
     undo() {

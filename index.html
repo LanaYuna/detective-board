@@ -8,7 +8,7 @@
 </head>
 <body>
 
-    <div class="m-5 p-1 gap-x-4 bg-sky-100 w-2xs">
+    <div class="m-5 p-1 flex gap-2.5 w-2xs">
         <button id="pencil-button">Pencil</button>
         <button id="circle-button">Circle</button>
         <button id="rectangle-button">Rectangle</button>
@@ -17,14 +17,23 @@
         <button id="redo-button">Redo</button> 
     </div>
 
-    <div class="m-5 w-2xs gap-x-4 flex">
-        <button class="bg-black w-5 h-5" id="black-button"></button>
-        <button class="bg-red-500 w-5 h-5" id="red-button"></button>
-        <button class="bg-blue-500 w-5 h-5" id="blue-button"></button>
+    <div class="m-5 w-32 gap-x-4 flex">
+        <button class="bg-black w-6 h-6" id="black-button"></button>
+        <button class="bg-red-500 w-6 h-6" id="red-button"></button>
+        <button class="bg-blue-500 w-6 h-6" id="blue-button"></button>
     </div>
 
-    <div>
-        <div></div>
+
+    <div class="m-5 w-32 gap-x-4 flex">
+        <button class="w-6 h-6 bg-gray-100" id="thin-line-button">
+            <div class="h-0.5 w-4 bg-black rounded-4xl mx-auto"></div>
+        </button>
+        <button class="w-6 h-6 bg-gray-100" id="medium-line-button">
+            <div class="h-0.75 w-4 bg-black rounded-4xl mx-auto"></div>
+        </button>
+        <button class="w-6 h-6 bg-gray-100" id="thick-line-button">
+            <div class="h-1 w-4 bg-black rounded-4xl mx-auto"></div>
+        </button>
     </div>
 
 

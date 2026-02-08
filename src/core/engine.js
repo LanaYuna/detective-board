@@ -11,6 +11,7 @@ export function renderDrawing(){
     state.objects.forEach(obj => { // redesenha a todo momento
         c.strokeStyle = obj.color;
         c.fillStyle = obj.color;
+        c.lineWidth = obj.lineWidth;
 
         if(obj.type == 'circle'){
             circleTool.draw(c, obj);

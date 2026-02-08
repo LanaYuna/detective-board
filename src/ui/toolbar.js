@@ -13,6 +13,10 @@ const redBtn = document.querySelector("#red-button");
 const blackBtn = document.querySelector("#black-button");
 const blueBtn = document.querySelector("#blue-button");
 
+const thinBtn = document.querySelector("#thin-line-button");
+const mediumBtn = document.querySelector("#medium-line-button");
+const thickBtn = document.querySelector("#thick-line-button");
+
 pencilBtn.addEventListener("click", () => {state.currentTool = 'pencil'});
 circleBtn.addEventListener("click", () => {state.currentTool = 'circle'});
 rectangleBtn.addEventListener("click", () => {state.currentTool = 'rectangle'});
@@ -22,6 +26,9 @@ redBtn.addEventListener("click", () => {state.currentColor = 'red'});
 blackBtn.addEventListener("click", () => {state.currentColor = 'black'});
 blueBtn.addEventListener("click", () => {state.currentColor = 'blue'});
 
+thinBtn.addEventListener("click", () => {state.lineWidth = 1});
+mediumBtn.addEventListener("click", () => {state.lineWidth = 5});
+thickBtn.addEventListener("click", () => {state.lineWidth = 10});
 
 undoBtn.addEventListener("click", () => {
     state.undo();

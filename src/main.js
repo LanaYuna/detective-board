@@ -18,20 +18,20 @@ canvas.addEventListener("mousedown", (event) => {
     state.drawing = true;
 
     if(state.currentTool == 'circle'){
-        newObject = circleTool.start(event, state.currentColor);
+        newObject = circleTool.start(event, state.currentColor, state.lineWidth);
         state.addObject(newObject);
 
     } else if (state.currentTool == 'rectangle') {
-        newObject = rectangleTool.start(event, state.currentColor);
+        newObject = rectangleTool.start(event, state.currentColor, state.lineWidth);
         state.addObject(newObject);
 
     } else if (state.currentTool == 'pencil') {
-        newObject = pencilTool.start(event, state.currentColor);
+        newObject = pencilTool.start(event, state.currentColor, state.lineWidth);
         state.addObject(newObject);
 
     } else if (state.currentTool == 'text') {
         const text = window.prompt("Informe o texto: ");
-        newObject = textTool.start(event, text, state.currentColor);
+        newObject = textTool.start(event, text, state.currentColor, state.lineWidth);
         state.addObject(newObject);
         state.drawing = false;
         textTool.draw(c, newObject);

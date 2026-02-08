@@ -1,10 +1,11 @@
 export const pencilTool = {
     
-    start(event, color){
+    start(event, color, lineWidth){
         return {
             type: 'pencil',
             color: color,
-            points: [{x: event.offsetX, y: event.offsetY}]
+            points: [{x: event.offsetX, y: event.offsetY}],
+            lineWidth: lineWidth
         };
     },
 

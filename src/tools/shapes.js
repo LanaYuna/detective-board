@@ -1,11 +1,12 @@
 export const circleTool = {
-    start(event, color){
+    start(event, color, lineWidth){
         return {
             x : event.offsetX,
             y: event.offsetY,
             type: 'circle',
             color: color,
-            radius: null
+            radius: null,
+            lineWidth: lineWidth
         };
     },
 
@@ -24,14 +25,15 @@ export const circleTool = {
 };
 
 export const rectangleTool = {
-    start(event, color){
+    start(event, color, lineWidth){
         return {
             x: event.offsetX,
             y: event.offsetY,
             type: 'rectangle',
             color: color,
             width: null,
-            height: null
+            height: null,
+            lineWidth: lineWidth
         };
     },
 
