@@ -1,5 +1,15 @@
 import { state } from '../core/state.js';
 import { renderDrawing } from '../core/engine.js';
+import { circleTool, rectangleTool } from '../tools/shapes.js';
+import { pencilTool } from '../tools/pencil.js';
+import { textTool } from '../tools/text.js';
+
+export const toolMap = {
+    circle: circleTool,
+    rectangle: rectangleTool,
+    pencil: pencilTool,
+    text: textTool
+};
 
 const undoBtn = document.querySelector("#undo-button");
 const redoBtn = document.querySelector("#redo-button");
@@ -53,4 +63,3 @@ window.addEventListener("keydown", (event) => {
         renderDrawing();
     }
 })
-

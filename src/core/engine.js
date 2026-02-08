@@ -4,6 +4,7 @@ import { circleTool } from '../tools/shapes.js';
 import { rectangleTool } from '../tools/shapes.js';
 import { c } from '../main.js';
 import { canvas } from '../main.js';
+import { toolMap } from '../ui/toolbar.js';
 
 export function renderDrawing(){
     c.clearRect(0, 0, canvas.width, canvas.height); // limpa o quadro
@@ -13,15 +14,6 @@ export function renderDrawing(){
         c.fillStyle = obj.color;
         c.lineWidth = obj.lineWidth;
 
-        if(obj.type == 'circle'){
-            circleTool.draw(c, obj);
-
-        } else if(obj.type == 'rectangle'){
-            rectangleTool.draw(c, obj);
-    
-        } else if(obj.type == 'pencil'){
-            pencilTool.draw(c, obj);
-
-        }
+        toolMap[obj.type].draw(c, obj);
     })
 };
