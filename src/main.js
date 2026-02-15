@@ -23,6 +23,11 @@ canvas.addEventListener("mousedown", (event) => {
         textTool.draw(c, newObject);
         return;
 
+    } else if(state.currentTool == 'eraser'){
+        if(toolMap[state.currentTool].erase(state.objects, event)){ // retorna true/false se houve colisão com algum objeto
+            renderDrawing();
+        }
+        
     } else {
         newObject = toolMap[state.currentTool].start(event, state.currentColor, state.lineWidth);
         state.addObject(newObject);
@@ -34,9 +39,15 @@ canvas.addEventListener("mousedown", (event) => {
 canvas.addEventListener("mousemove", (event) => {
     if(!state.drawing) return;
 
-    toolMap[state.currentTool].move(newObject, event); // Uso de hashmap para redimensionamento da ferramenta
-
-    renderDrawing();
+    if(state.currentTool == 'eraser') {
+        if(toolMap[state.currentTool].erase(state.objects, event)){
+            renderDrawing();
+        }
+    } else {
+        toolMap[state.currentTool].move(newObject, event); // Uso de hashmap para redimensionamento da ferramenta
+        renderDrawing();
+    }
+   
 });
 
 canvas.addEventListener("mouseup", () => {

@@ -20,7 +20,6 @@ const pencilBtn = document.querySelector("#pencil-button");
 const circleBtn = document.querySelector("#circle-button");
 const rectangleBtn = document.querySelector("#rectangle-button");
 const textBtn = document.querySelector("#text-button");
-
 const eraserBtn = document.querySelector("#eraser-button");
 
 const redBtn = document.querySelector("#red-button");
@@ -35,6 +34,7 @@ pencilBtn.addEventListener("click", () => {state.currentTool = 'pencil'});
 circleBtn.addEventListener("click", () => {state.currentTool = 'circle'});
 rectangleBtn.addEventListener("click", () => {state.currentTool = 'rectangle'});
 textBtn.addEventListener("click", () => {state.currentTool = 'text'});
+eraserBtn.addEventListener("click", () => {state.currentTool = 'eraser'});
 
 redBtn.addEventListener("click", () => {state.currentColor = 'red'});
 blackBtn.addEventListener("click", () => {state.currentColor = 'black'});
