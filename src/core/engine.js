@@ -1,7 +1,4 @@
 import { state } from '../core/state.js';
-import { pencilTool } from '../tools/pencil.js';
-import { circleTool } from '../tools/shapes.js';
-import { rectangleTool } from '../tools/shapes.js';
 import { c } from '../main.js';
 import { canvas } from '../main.js';
 import { toolMap } from '../ui/toolbar.js';

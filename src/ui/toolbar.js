@@ -3,12 +3,14 @@ import { renderDrawing } from '../core/engine.js';
 import { circleTool, rectangleTool } from '../tools/shapes.js';
 import { pencilTool } from '../tools/pencil.js';
 import { textTool } from '../tools/text.js';
+import { eraserTool } from '../tools/eraser.js';
 
 export const toolMap = {
     circle: circleTool,
     rectangle: rectangleTool,
     pencil: pencilTool,
-    text: textTool
+    text: textTool,
+    eraser: eraserTool
 };
 
 const undoBtn = document.querySelector("#undo-button");
@@ -18,6 +20,8 @@ const pencilBtn = document.querySelector("#pencil-button");
 const circleBtn = document.querySelector("#circle-button");
 const rectangleBtn = document.querySelector("#rectangle-button");
 const textBtn = document.querySelector("#text-button");
+
+const eraserBtn = document.querySelector("#eraser-button");
 
 const redBtn = document.querySelector("#red-button");
 const blackBtn = document.querySelector("#black-button");
