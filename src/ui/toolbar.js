@@ -4,12 +4,14 @@ import { circleTool, rectangleTool } from '../tools/shapes.js';
 import { pencilTool } from '../tools/pencil.js';
 import { textTool } from '../tools/text.js';
 import { eraserTool } from '../tools/eraser.js';
+import { lineTool } from '../tools/connectors.js';
 
 export const toolMap = {
     circle: circleTool,
     rectangle: rectangleTool,
     pencil: pencilTool,
     text: textTool,
+    line: lineTool,
     eraser: eraserTool
 };
 
@@ -20,6 +22,7 @@ const pencilBtn = document.querySelector("#pencil-button");
 const circleBtn = document.querySelector("#circle-button");
 const rectangleBtn = document.querySelector("#rectangle-button");
 const textBtn = document.querySelector("#text-button");
+const lineBtn = document.querySelector("#line-button");
 const eraserBtn = document.querySelector("#eraser-button");
 
 const redBtn = document.querySelector("#red-button");
@@ -35,6 +38,7 @@ circleBtn.addEventListener("click", () => {state.currentTool = 'circle'});
 rectangleBtn.addEventListener("click", () => {state.currentTool = 'rectangle'});
 textBtn.addEventListener("click", () => {state.currentTool = 'text'});
 eraserBtn.addEventListener("click", () => {state.currentTool = 'eraser'});
+lineBtn.addEventListener("click", () => {state.currentTool = 'line'});
 
 redBtn.addEventListener("click", () => {state.currentColor = 'red'});
 blackBtn.addEventListener("click", () => {state.currentColor = 'black'});

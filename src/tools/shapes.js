@@ -1,7 +1,7 @@
 export const circleTool = {
     start(event, color, lineWidth){
         return {
-            x : event.offsetX,
+            x: event.offsetX,
             y: event.offsetY,
             type: 'circle',
             color: color,
