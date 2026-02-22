@@ -43,6 +43,7 @@ canvas.addEventListener("mousemove", (event) => {
         if(toolMap[state.currentTool].erase(state.objects, event)){
             renderDrawing();
         }
+        
     } else {
         toolMap[state.currentTool].move(newObject, event); // Uso de hashmap para redimensionamento da ferramenta
         renderDrawing();
