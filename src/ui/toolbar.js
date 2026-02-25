@@ -12,6 +12,7 @@ export const toolMap = {
     pencil: pencilTool,
     text: textTool,
     line: lineTool,
+    arrow: lineTool,
     eraser: eraserTool
 };
 
@@ -23,6 +24,7 @@ const circleBtn = document.querySelector("#circle-button");
 const rectangleBtn = document.querySelector("#rectangle-button");
 const textBtn = document.querySelector("#text-button");
 const lineBtn = document.querySelector("#line-button");
+const arrowBtn = document.querySelector("#arrow-button"); 
 const eraserBtn = document.querySelector("#eraser-button");
 
 const redBtn = document.querySelector("#red-button");
@@ -39,14 +41,15 @@ rectangleBtn.addEventListener("click", () => {state.currentTool = 'rectangle'});
 textBtn.addEventListener("click", () => {state.currentTool = 'text'});
 eraserBtn.addEventListener("click", () => {state.currentTool = 'eraser'});
 lineBtn.addEventListener("click", () => {state.currentTool = 'line'});
+arrowBtn.addEventListener("click", () => {state.currentTool = 'arrow'});
 
 redBtn.addEventListener("click", () => {state.currentColor = 'red'});
 blackBtn.addEventListener("click", () => {state.currentColor = 'black'});
 blueBtn.addEventListener("click", () => {state.currentColor = 'blue'});
 
 thinBtn.addEventListener("click", () => {state.lineWidth = 1});
-mediumBtn.addEventListener("click", () => {state.lineWidth = 5});
-thickBtn.addEventListener("click", () => {state.lineWidth = 10});
+mediumBtn.addEventListener("click", () => {state.lineWidth = 3});
+thickBtn.addEventListener("click", () => {state.lineWidth = 5});
 
 undoBtn.addEventListener("click", () => {
     state.undo();

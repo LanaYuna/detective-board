@@ -28,6 +28,10 @@ canvas.addEventListener("mousedown", (event) => {
             renderDrawing();
         }
         
+    } else if(state.currentTool == 'arrow'){
+        newObject = toolMap[state.currentTool].start(event, state.currentColor, state.lineWidth, true);
+        state.addObject(newObject);
+
     } else {
         newObject = toolMap[state.currentTool].start(event, state.currentColor, state.lineWidth);
         state.addObject(newObject);

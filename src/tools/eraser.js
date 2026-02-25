@@ -25,12 +25,15 @@ export const eraserTool = {
                    mouseY >= obj.y && mouseY <= obj.y + obj.height;
 
         } else if(obj.type == 'circle'){
-            const dx = mouseX - obj.x;
+            const dx = mouseX - obj.x; 
             const dy = mouseY - obj.y;
             return obj.radius >= Math.sqrt( dx * dx + dy * dy);
 
         } else if(obj.type == 'text'){
             return mouseX <= obj.x + 20 && mouseY <= obj.y + 20;
+
+        } else if(obj.type == 'line'){  
+            return mouseX
         }
     }
 
